@@ -1,9 +1,6 @@
-import * as path from 'path';
-import * as webpack from 'webpack';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin'
-
-const config: webpack.Configuration = {
+const path = require('path')
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const config = {
     entry: {
         main: path.join(__dirname, "../src/index.tsx")
     },
@@ -11,14 +8,18 @@ const config: webpack.Configuration = {
         filename: '[name].[hash]js',
         path: path.join(__dirname, "../dist")
     },
-    mode: 'production',
+    mode: 'development',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
+    },
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
     module: {
         rules: [
-            {test: /\.tsx?$/, loader: "./config/my-loader!awesome-typescript-loader"}
+            {test: /\.tsx?$/, loader: "awesome-typescript-loader"}
         ]
     },
     optimization: {
@@ -34,11 +35,10 @@ const config: webpack.Configuration = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: 'index.html'
+        new htmlWebpackPlugin({
+            template: "index.html"
         })
     ]
 }
 
-export default config;
+module.exports = exports = config;

@@ -1,9 +1,7 @@
-import * as path from 'path';
-import * as webpack from 'webpack';
-import CleanWebpackPlugin from 'clean-webpack-plugin';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin'
-
-const config: webpack.Configuration = {
+const path = require('path')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = {
     entry: {
         main: path.join(__dirname, "../src/index.tsx")
     },
@@ -18,7 +16,8 @@ const config: webpack.Configuration = {
     },
     module: {
         rules: [
-            {test: /\.tsx?$/, loader: "./config/my-loader!awesome-typescript-loader"}
+            {test: /\.tsx?$/, loader: "babel-loader!awesome-typescript-loader"},
+            {test: /\.css$/, loader: "style-loader!css-loader"}
         ]
     },
     optimization: {
@@ -41,4 +40,4 @@ const config: webpack.Configuration = {
     ]
 }
 
-export default config;
+module.exports = exports = config;
